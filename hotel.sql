@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Creato il: Gen 13, 2021 alle 16:03
--- Versione del server: 5.7.24
--- Versione PHP: 7.4.1
+-- Generation Time: Jan 13, 2021 at 09:38 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `camere`
+-- Table structure for table `camere`
 --
 
 CREATE TABLE `camere` (
@@ -35,13 +35,21 @@ CREATE TABLE `camere` (
   `libera` tinyint(4) NOT NULL,
   `tipo` varchar(10) NOT NULL,
   `posti_letto` tinyint(4) NOT NULL,
-  `prezzo_notte` float(3,2) NOT NULL
+  `prezzo_notte` float(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `camere`
+--
+
+INSERT INTO `camere` (`camere_ID`, `numero_camera`, `piano`, `libera`, `tipo`, `posti_letto`, `prezzo_notte`) VALUES
+(1, 101, 1, 0, 'suite', 2, 115.21),
+(2, 101, 1, 0, 'suite', 2, 115.21);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `clienti`
+-- Table structure for table `clienti`
 --
 
 CREATE TABLE `clienti` (
@@ -55,10 +63,18 @@ CREATE TABLE `clienti` (
   `saldo` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `clienti`
+--
+
+INSERT INTO `clienti` (`cliente_id`, `ospiti`, `nome`, `cognome`, `data_nascita`, `numero_documento`, `tipo_documento`, `saldo`) VALUES
+(1, 2, 'Davide', 'Rinaldi', '2019-03-13', 'ab12345', 'Carta d\'identità', 1),
+(2, 2, 'Davide', 'Rinaldi', '2019-03-13', 'ab12345', 'Carta d\'identità', 1);
+
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `prenotazioni`
+-- Table structure for table `prenotazioni`
 --
 
 CREATE TABLE `prenotazioni` (
@@ -71,23 +87,31 @@ CREATE TABLE `prenotazioni` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Indici per le tabelle scaricate
+-- Dumping data for table `prenotazioni`
+--
+
+INSERT INTO `prenotazioni` (`prenotazione_id`, `cliente_prenotazione`, `camera_prenotata`, `data_check_in`, `data_check_out_prevista`, `data_check_out_reale`) VALUES
+(1, 1, 1, '2021-01-13 22:36:41', '2021-01-15', '2021-01-15 09:36:41'),
+(2, 1, 1, '2021-01-13 22:36:41', '2021-01-15', '2021-01-15 09:36:41');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indici per le tabelle `camere`
+-- Indexes for table `camere`
 --
 ALTER TABLE `camere`
   ADD PRIMARY KEY (`camere_ID`);
 
 --
--- Indici per le tabelle `clienti`
+-- Indexes for table `clienti`
 --
 ALTER TABLE `clienti`
   ADD PRIMARY KEY (`cliente_id`);
 
 --
--- Indici per le tabelle `prenotazioni`
+-- Indexes for table `prenotazioni`
 --
 ALTER TABLE `prenotazioni`
   ADD PRIMARY KEY (`prenotazione_id`),
@@ -95,33 +119,33 @@ ALTER TABLE `prenotazioni`
   ADD KEY `camera_prenotata` (`camera_prenotata`);
 
 --
--- AUTO_INCREMENT per le tabelle scaricate
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT per la tabella `camere`
+-- AUTO_INCREMENT for table `camere`
 --
 ALTER TABLE `camere`
-  MODIFY `camere_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `camere_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT per la tabella `clienti`
+-- AUTO_INCREMENT for table `clienti`
 --
 ALTER TABLE `clienti`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT per la tabella `prenotazioni`
+-- AUTO_INCREMENT for table `prenotazioni`
 --
 ALTER TABLE `prenotazioni`
-  MODIFY `prenotazione_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `prenotazione_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Limiti per le tabelle scaricate
+-- Constraints for dumped tables
 --
 
 --
--- Limiti per la tabella `prenotazioni`
+-- Constraints for table `prenotazioni`
 --
 ALTER TABLE `prenotazioni`
   ADD CONSTRAINT `prenotazioni_ibfk_1` FOREIGN KEY (`cliente_prenotazione`) REFERENCES `clienti` (`cliente_id`),
